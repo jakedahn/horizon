@@ -5,11 +5,13 @@
   <tr id='headings'>
     <th>{% trans "ID"%}</th>
     <th>{% trans "Name"%}</th>
-    <th>{% trans "Groups"%}</th>
     <th>{% trans "Image"%}</th>
     <th>{% trans "Size"%}</th>
+    <!--<th>{% trans "Image"%}</th>
+    <th>{% trans "Size"%}</th>-->
     <th>{% trans "IPs"%}</th>
     <th>{% trans "State"%}</th>
+    <th>{% trans "Console"%}</th>
     <th>{% trans "Actions"%}</th>
   </tr>
   <tbody class='main'>
@@ -20,54 +22,81 @@
             <a href="{% url horizon:nova:instances:detail instance.id %}">
               {{instance.name}}
               {% if instance.attrs.key_name %}
-                  <br/>
+                   | 
                   <small> ({{instance.attrs.key_name}}) </small>
               {% endif %}
             </a>
           </td>
-          <td>
+          <td>{{instance.image_name}}</td>
+          <td>{{instance.size}}
+            (<span class="show_btn" onclick="$('#size_details_{{instance.id}}').modal({backdrop:true, keyboard: true, show: true});">Details</span>)
+            <div class="modal hide fade" id="size_details_{{instance.id}}">
+              <div class="modal-header">
+              <a class="close" href="#">×</a>
+              <h3>Actions for {{instance.name}}</h3>
+              </div>
+              <div class="modal-body" style="padding-bottom: 20px;">
+                {{instance.attrs.memory_mb|mbformat}} Ram | {{instance.attrs.vcpus}} VCPU | {{instance.attrs.disk_gb}}GB Disk
+            </div>
+            <div class="modal-footer"></div>
+            </div>  
+          </td>
+          <!--<td>
             <ul>
               {% for group in instance.attrs.security_groups %}
                 <li>{{group}}</li>
               {% endfor %}
             <ul>
           </td>
-          <td>{{instance.image_name}}</td>
           <td>
             <ul>
               <li>{{instance.attrs.memory_mb|mbformat}} Ram</li>
               <li>{{instance.attrs.vcpus}} VCPU</li>
               <li>{{instance.attrs.disk_gb}}GB Disk</li>
             </ul>
-          </td>
+          </td>-->
           <td class="ip_list">
-            {% for ip_group, addresses in instance.addresses.items %}
-              {% if instance.addresses.items|length > 1 %}
-              <h4>{{ip_group}}</h4>
-              <ul>
-                {% for address in addresses %}
-                  <li>{{address.addr}}</li>
+            <span onclick="$('#ips_{{instance.id}}').modal({backdrop:true, keyboard: true, show: true});">Show</span>
+            <div class="modal hide fade" id="ips_{{instance.id}}">
+              <div class="modal-header">
+              <a class="close" href="#">×</a>
+              <h3>IPs for {{instance.name}}</h3>
+              </div>
+              <div class="modal-body" style="padding-bottom: 20px;">
+                {% for ip_group, addresses in instance.addresses.items %}
+                  {% if instance.addresses.items|length > 1 %}
+                  <h4>{{ip_group}}</h4>
+                  <ul>
+                    {% for address in addresses %}
+                      <li>{{address.addr}}</li>
+                    {% endfor %}
+                  </ul>
+                  {% else %}
+                  <ul>
+                    {% for address in addresses %}
+                      <li>{{address.addr}}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
                 {% endfor %}
-              </ul>
-              {% else %}
-              <ul>
-                {% for address in addresses %}
-                  <li>{{address.addr}}</li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            {% endfor %}
+            </div>
+            <div class="modal-footer"></div>
+            </div>
           </td>
           <td>{{instance.status|lower|capfirst}}</td>
-          <td id="actions">
-            <ul>
-              <li><a class="btn small" target="_blank" href="{% url horizon:nova:instances:console instance.id %}">{% trans "Log"%}</a></li>
-              <li><a class="btn small" target="_blank" href="{% url horizon:nova:instances:vnc instance.id %}">{% trans "VNC Console"%}</a></li>
-              <li><a class="btn small" href="{% url horizon:nova:instances:update instance.id %}">{% trans "Edit"%}</a></li>
-              <li><a class="btn small" href="{% url horizon:nova:snapshots:create instance.id %}">{% trans "Snapshot"%}</a></li>
-              <li class="form">{% include "nova/instances/_reboot.html" with form=reboot_form %}</li>
-              <li class="form">{% include "nova/instances/_terminate.html" with form=terminate_form %}</li>
-            </ul>
+          <td><a target="_blank" href="{% url horizon:nova:instances:vnc instance.id %}">{% trans "VNC Console"%}</a></td>
+          <td>
+            <span class="show_btn" onclick="$('#actions_{{instance.id}}').modal({backdrop:true, keyboard: true, show: true});">Show</span>
+            <div class="modal hide fade" id="actions_{{instance.id}}">
+              <div class="modal-header">
+              <a class="close" href="#">×</a>
+              <h3>Actions for {{instance.name}}</h3>
+              </div>
+              <div class="modal-body" style="padding-bottom: 20px;">
+            <a class="btn small" target="_blank" href="{% url horizon:nova:instances:console instance.id %}">{% trans "Log"%}</a> <a class="btn small" href="{% url horizon:nova:instances:update instance.id %}">{% trans "Edit"%}</a> <a class="btn small" href="{% url horizon:nova:snapshots:create instance.id %}">{% trans "Snapshot"%}</a> {% include "nova/instances/_reboot.html" with form=reboot_form %} {% include "nova/instances/_terminate_link.html" with form=terminate_form %}
+            </div>
+            <div class="modal-footer"></div>
+            </div>
         </td>
       </tr>
     {% endfor %}
