@@ -1,5 +1,5 @@
 {% load i18n %}
-<form id="form_terminate_{{ instance.id }}" class="form-terminate" method="post" style="display:inline;">
+<form id="form_terminate_{{ instance.id }}" class="form-terminate form-inline" method="post">
   {% csrf_token %}
   {% for hidden in form.hidden_fields %}
     {{ hidden }}

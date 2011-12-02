@@ -687,3 +687,11 @@ tfoot tr td { border-top: 1px solid #DDD }
 #images #actions {
 	width: 100px;
 }
+
+/*New List Patches*/
+.details-modal .modal-body {
+  padding-bottom: 20px;
+}
+.form-inline {
+  display: inline;
+}

@@ -81,6 +81,10 @@ $(function(){
     var response = confirm('Are you sure you want to reboot the '+$(this).attr('title')+" ?");
     return response;
   })
+  
+  $(".details-modal-button").click(function(e){
+    alert($(this).siblings('.details-modal').hasClass('modal'));
+  });
 
   $(".disable").click(function(e){
     var response = confirm('Are you sure you want to disable the '+$(this).attr('title')+" ?");

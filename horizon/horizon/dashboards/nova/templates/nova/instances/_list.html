@@ -7,8 +7,6 @@
     <th>{% trans "Name"%}</th>
     <th>{% trans "Image"%}</th>
     <th>{% trans "Size"%}</th>
-    <!--<th>{% trans "Image"%}</th>
-    <th>{% trans "Size"%}</th>-->
     <th>{% trans "IPs"%}</th>
     <th>{% trans "State"%}</th>
     <th>{% trans "Console"%}</th>
@@ -29,8 +27,8 @@
           </td>
           <td>{{instance.image_name}}</td>
           <td>{{instance.size}}
-            (<span class="show_btn" onclick="$('#size_details_{{instance.id}}').modal({backdrop:true, keyboard: true, show: true});">Details</span>)
-            <div class="modal hide fade" id="size_details_{{instance.id}}">
+            (<span class="details-modal-button">Details</span>)
+            <div class="details-modal modal hide">
               <div class="modal-header">
               <a class="close" href="#">×</a>
               <h3>Actions for {{instance.name}}</h3>
@@ -41,23 +39,9 @@
             <div class="modal-footer"></div>
             </div>  
           </td>
-          <!--<td>
-            <ul>
-              {% for group in instance.attrs.security_groups %}
-                <li>{{group}}</li>
-              {% endfor %}
-            <ul>
-          </td>
-          <td>
-            <ul>
-              <li>{{instance.attrs.memory_mb|mbformat}} Ram</li>
-              <li>{{instance.attrs.vcpus}} VCPU</li>
-              <li>{{instance.attrs.disk_gb}}GB Disk</li>
-            </ul>
-          </td>-->
           <td class="ip_list">
-            <span onclick="$('#ips_{{instance.id}}').modal({backdrop:true, keyboard: true, show: true});">Show</span>
-            <div class="modal hide fade" id="ips_{{instance.id}}">
+            <span class="details-modal-button">Show</span>
+            <div class="details-modal modal hide">
               <div class="modal-header">
               <a class="close" href="#">×</a>
               <h3>IPs for {{instance.name}}</h3>
@@ -86,13 +70,13 @@
           <td>{{instance.status|lower|capfirst}}</td>
           <td><a target="_blank" href="{% url horizon:nova:instances:vnc instance.id %}">{% trans "VNC Console"%}</a></td>
           <td>
-            <span class="show_btn" onclick="$('#actions_{{instance.id}}').modal({backdrop:true, keyboard: true, show: true});">Show</span>
-            <div class="modal hide fade" id="actions_{{instance.id}}">
+            <span class="details-modal-button">Show</span>
+            <div class="details-modal modal hide">
               <div class="modal-header">
               <a class="close" href="#">×</a>
               <h3>Actions for {{instance.name}}</h3>
               </div>
-              <div class="modal-body" style="padding-bottom: 20px;">
+              <div class="modal-body">
             <a class="btn small" target="_blank" href="{% url horizon:nova:instances:console instance.id %}">{% trans "Log"%}</a> <a class="btn small" href="{% url horizon:nova:instances:update instance.id %}">{% trans "Edit"%}</a> <a class="btn small" href="{% url horizon:nova:snapshots:create instance.id %}">{% trans "Snapshot"%}</a> {% include "nova/instances/_reboot.html" with form=reboot_form %} {% include "nova/instances/_terminate_link.html" with form=terminate_form %}
             </div>
             <div class="modal-footer"></div>
