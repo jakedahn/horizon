@@ -39,7 +39,7 @@ $(function(){
       this.style.color = '';
     },
     'hide': function () {
-      this.style.color = '#ccc';
+      this.style.display = 'none';
     },
     'prepareQuery': function (val) {
       return new RegExp(val, "i");
@@ -50,9 +50,6 @@ $(function(){
   });
 
   $('table#keypairs').tablesorter();
-
-  $('#keypair_filter form input[type=checkbox]').columnar({});
-
 
   // show+hide image details
   $(".details").hide()
