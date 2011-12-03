@@ -1,3 +1,5 @@
+/* @override http://looce.com:8080/static/dashboard/css/style.css */
+
 /* new clearfix */
 .clearfix:after {
     visibility: hidden;
@@ -695,3 +697,61 @@ tfoot tr td { border-top: 1px solid #DDD }
 .form-inline {
   display: inline;
 }
+
+td.select {
+  width: 10px;
+}
+
+/* Actions dropdown */
+
+td.actions {
+  width: 150px;
+  padding: 10px;
+}
+
+td.actions a.more-actions {
+  display: block;
+  float: left;
+  width: 132px;
+  padding: 10px;
+  background: url(../images/right_droparrow.png) no-repeat 130px;
+}
+
+td.actions a.more-actions:hover, td.actions a.more-actions.active {
+  background: #cdcdcd url(../images/drop_arrow.png) no-repeat 125px;
+
+}
+
+td.actions ul {
+  background: #e1e1e1;
+  float: left;
+  width: 150px;
+  position: absolute;
+  padding-bottom: 10px;
+  border: 1px solid #cacaca;
+  padding-top: 10px;
+  display: none;
+  margin-top: 37px;
+}
+
+td.actions ul.active {
+  display: block;
+}
+
+td.actions ul li {
+  padding: 5px 10px;
+}
+
+td.actions ul li a {
+  width: 110px;
+}
+
+td.actions ul li input {
+  width: 129px;
+  text-align: left;
+}
+
+td.actions ul {
+  display: none;
+}
+
