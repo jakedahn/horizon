@@ -1,7 +1,8 @@
 <!-- TODO(termie): move most of this to horizon -->
 {% load sizeformat %}
 {% load i18n %}
-<table id='instances' class="zebra-striped">
+<table id='instances' class="zebra-striped eSorter">
+  <thead>
   <tr id='headings'>
     <th>{% trans "ID"%}</th>
     <th>{% trans "Name"%}</th>
@@ -12,6 +13,7 @@
     <th>{% trans "Console"%}</th>
     <th>{% trans "Actions"%}</th>
   </tr>
+  </thead>
   <tbody class='main'>
     {% for instance in instances %}
       <tr class="{% cycle 'odd' 'even' %}">
@@ -27,21 +29,21 @@
           </td>
           <td>{{instance.image_name}}</td>
           <td>{{instance.size}}
-            (<span class="details-modal-button">Details</span>)
-            <div class="details-modal modal hide">
+            (<span class="details-modal-button" data-controls-modal="sd_{{instance.id}}" data-backdrop="true" data-keyboard="true">Details</span>)
+            <div id="sd_{{instance.id}}" class="details-modal modal hide">
               <div class="modal-header">
               <a class="close" href="#">×</a>
               <h3>Actions for {{instance.name}}</h3>
               </div>
-              <div class="modal-body" style="padding-bottom: 20px;">
+              <div class="modal-body">
                 {{instance.attrs.memory_mb|mbformat}} Ram | {{instance.attrs.vcpus}} VCPU | {{instance.attrs.disk_gb}}GB Disk
-            </div>
+              </div>
             <div class="modal-footer"></div>
             </div>  
           </td>
           <td class="ip_list">
-            <span class="details-modal-button">Show</span>
-            <div class="details-modal modal hide">
+            <span data-controls-modal="ip_{{instance.id}}" data-backdrop="true" data-keyboard="true">Show</span>
+            <div id="ip_{{instance.id}}" class="details-modal modal hide">
               <div class="modal-header">
               <a class="close" href="#">×</a>
               <h3>IPs for {{instance.name}}</h3>
@@ -70,8 +72,8 @@
           <td>{{instance.status|lower|capfirst}}</td>
           <td><a target="_blank" href="{% url horizon:nova:instances:vnc instance.id %}">{% trans "VNC Console"%}</a></td>
           <td>
-            <span class="details-modal-button">Show</span>
-            <div class="details-modal modal hide">
+            <span data-controls-modal="act_{{instance.id}}" data-backdrop="true" data-keyboard="true">Show</span>
+            <div id="act_{{instance.id}}" class="details-modal modal hide">
               <div class="modal-header">
               <a class="close" href="#">×</a>
               <h3>Actions for {{instance.name}}</h3>
