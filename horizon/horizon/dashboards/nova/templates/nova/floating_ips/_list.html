@@ -1,4 +1,17 @@
 {% load i18n %}
+
+<div class="table_title">
+  <h3>Floating IPs</h3>
+  <div class="table_actions">
+    <div class="floating_ips table_search">
+      <form action="#">
+        <input class="span3" type="text">
+      </form>
+    </div>
+    <a class="inspect" href="#">inspect</a>
+  </div>
+</div>
+
 <table id="floating_ips" class="zebra-striped">
   <tr>
 		<th></th>
@@ -22,8 +35,8 @@
         None
       {% endif %}
     </td>
-
-    <td id="actions">
+		<td id="name_{{ip.name}}" class="actions">
+      <a class="more-actions" href="#">View</a>
       <ul>
         <li class="form">{% include "nova/floating_ips/_release.html" with form=release_form %}</li>
         {% if ip.fixed_ip %}
