@@ -44,18 +44,22 @@
     </td>
 
     <td id="name_{{instance.name}}" class="actions">
-      <a class="more-actions" href="#">View</a>
-      <ul>
-        {% if volume.status == "in-use" %}
-          {% for attachment in volume.attachments %}
-            <li class="form">{% include "nova/volumes/_detach.html" with form=detach_form %}</li>
-          {% endfor %}
-        {% endif %}
-        {% if volume.status == "available" %}
-          <li><a class="btn small" href="{% url horizon:nova:volumes:attach volume.id %}">{% trans "Attach" %}</a></li>
-          <li class="form">{% include "nova/volumes/_delete.html" with form=delete_form %}</li>
-        {% endif %}
-      </ul>
+      {% if  volume.status == "in-use" or volume.status == "available" %}
+        <a class="more-actions" href="#">View</a>
+        <ul>
+          {% if volume.status == "in-use" %}
+            {% for attachment in volume.attachments %}
+              <li class="form">{% include "nova/volumes/_detach.html" with form=detach_form %}</li>
+            {% endfor %}
+          {% endif %}
+          {% if volume.status == "available" %}
+            <li><a class="btn small" href="{% url horizon:nova:volumes:attach volume.id %}">{% trans "Attach" %}</a></li>
+            <li class="form">{% include "nova/volumes/_delete.html" with form=delete_form %}</li>
+          {% endif %}
+        </ul>
+      {% else %}
+        None
+      {% endif %}
     </td>
   </tr>
   {% endfor %}

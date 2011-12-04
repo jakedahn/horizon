@@ -18,7 +18,7 @@
 		<th></th>
     <th>IP</th>
     <th>Instance</th>
-    <th>Actions</th>
+    <th colspan="2">Actions</th>
   </tr>
   {% for ip in floating_ips %}
   <tr class="{% cycle 'odd' 'even' %}">
@@ -36,15 +36,17 @@
         None
       {% endif %}
     </td>
+    <td>
+      {% if ip.fixed_ip %}
+        {% include "nova/floating_ips/_disassociate.html" with form=disassociate_form %}
+      {% else %}
+        <a class="btn primary small ajax-modal" href="{% url horizon:nova:floating_ips:associate ip.id %}">{%trans "Associate to instance"%}</a>
+      {% endif %}
+    </td>
 		<td id="name_{{ip.name}}" class="actions">
       <a class="more-actions" href="#">View</a>
       <ul>
         <li class="form">{% include "nova/floating_ips/_release.html" with form=release_form %}</li>
-        {% if ip.fixed_ip %}
-        <li class="form">{% include "nova/floating_ips/_disassociate.html" with form=disassociate_form %}</li>
-        {% else %}
-          <li class="form"><a class="btn small ajax-modal" href="{% url horizon:nova:floating_ips:associate ip.id %}">{%trans "Associate to instance"%}</a></li>
-        {% endif %}
       </ul>
     </td>
   </tr>

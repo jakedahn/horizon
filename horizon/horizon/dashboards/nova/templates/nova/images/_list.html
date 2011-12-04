@@ -19,7 +19,7 @@
     <th>{%trans "Name"%}</th>
     <th>{%trans "Type"%}</th>
     <th>{%trans "Status"%}</th>
-		<th>{% trans "Actions"%}</th>
+    <th colspan="2">{% trans "Actions"%}</th>
   </tr>
   {% for image in images %}
   <tr class="{% cycle 'odd' 'even' %}">
@@ -27,18 +27,20 @@
         <input type="checkbox" name="image_{{image.id}}" value="image_{{image.id}}" id="image_select_{{image.id}}" />
       </td>
       <td>{{image.name}}</td>
-			<td>{{image.properties.image_type|default:"Image"}}</td>
+      <td>{{image.properties.image_type|default:"Image"}}</td>
       <td>{{image.status|capfirst}}</td>
-			<td id="name_{{image.name}}" class="actions">
-	      <a class="more-actions" href="#">View</a>
-	      <ul>
-          <li>{{ image.request.user.id }}<a class="btn small primary" data-controls-modal="launch_image_{{image.id}}" data-backdrop="static" href="{% url horizon:nova:images:launch image.id %}">{% trans "Launch" %}</a></li>
-          {% if image.owner == request.user.tenant_id %}
+      <td>
+        <a class="btn small primary" data-controls-modal="launch_image_{{image.id}}" data-backdrop="static" href="{% url horizon:nova:images:launch image.id %}">{% trans "Launch" %}</a>
+      </td>
+      <td id="name_{{image.name}}" class="actions">        
+        {% if image.owner == request.user.tenant_id %}
+        <a class="more-actions" href="#">View</a>
+        <ul>
           <li><a class='btn small' href="{% url horizon:nova:images:update image.id %}">{% trans "Edit" %}</a></li>
-					<li class="form">{% include "nova/images/_delete.html" with form=delete_form %}</li>
-          {% endif %}
+          <li class="form">{% include "nova/images/_delete.html" with form=delete_form %}</li>
         </ul>
-	    </td>
+        {% endif %}
+      </td>
   </tr>
   {% endfor %}
 </table>
