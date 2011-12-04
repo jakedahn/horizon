@@ -18,9 +18,13 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+import horizon
+from horizon.dashboards.nova import dashboard
 
-from django.conf.urls.defaults import *
 
-urlpatterns = patterns('horizon.dashboards.nova',
-    url(r'^$', 'instances_and_volumes.instances.views.usage', name='index'),
-)
+class InstancesAndVolumes(horizon.Panel):
+    name = "Instances & Volumes"
+    slug = 'instances-and-volumes'
+
+
+dashboard.Nova.register(InstancesAndVolumes)

@@ -27,7 +27,7 @@ from django.utils.translation import ugettext as _
 from novaclient import exceptions as novaclient_exceptions
 
 from horizon import api
-from horizon.dashboards.nova.volumes.forms import (CreateForm,
+from horizon.dashboards.nova.instances_and_volumes.volumes.forms import (CreateForm,
         DeleteForm, AttachForm, DetachForm)
 
 

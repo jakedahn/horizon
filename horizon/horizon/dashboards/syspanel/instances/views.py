@@ -31,7 +31,7 @@ from django.utils.translation import ugettext as _
 
 from horizon import api
 from horizon import forms
-from horizon.dashboards.nova.instances import views as dash_instances
+from horizon.dashboards.nova.instances_and_volumes.instances import forms  as dash_instances
 from openstackx.api import exceptions as api_exceptions
 
 

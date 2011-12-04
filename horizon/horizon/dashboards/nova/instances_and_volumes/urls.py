@@ -22,7 +22,8 @@ from django.conf.urls.defaults import patterns, url
 
 INSTANCES = r'^(?P<instance_id>[^/]+)/%s$'
 
-urlpatterns = patterns('horizon.dashboards.nova.instances.views',
+# instances
+urlpatterns = patterns('horizon.dashboards.nova.instances_and_volumes.instances.views',
     url(r'^$', 'index', name='index'),
     url(r'^usage/$', 'usage', name='usage'),
     url(r'^refresh$', 'refresh', name='refresh'),
@@ -31,3 +32,12 @@ urlpatterns = patterns('horizon.dashboards.nova.instances.views',
     url(INSTANCES % 'vnc', 'vnc', name='vnc'),
     url(INSTANCES % 'update', 'update', name='update'),
 )
+
+# volumes
+urlpatterns = patterns('horizon.dashboards.nova.instances_and_volumes.volumes.views',
+    url(r'^$', 'index', name='index'),
+    url(r'^create/$', 'create', name='create'),
+    url(r'^(?P<volume_id>[^/]+)/attach/$', 'attach', name='attach'),
+    url(r'^(?P<volume_id>[^/]+)/detail/$', 'detail', name='detail'),
+)
+

@@ -34,7 +34,7 @@ import openstackx.api.exceptions as api_exceptions
 from horizon import api
 from horizon import forms
 from horizon import test
-from horizon.dashboards.nova.instances.forms import (TerminateInstance,
+from horizon.dashboards.nova.instances_and_volumes.instances.forms import (TerminateInstance,
         RebootInstance, UpdateInstance)
 
 
