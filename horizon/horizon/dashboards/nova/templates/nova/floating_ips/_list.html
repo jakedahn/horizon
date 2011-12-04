@@ -3,6 +3,7 @@
 <div class="table_title">
   <h3>Floating IPs</h3>
   <div class="table_actions">
+    {% include "nova/floating_ips/_allocate.html" with form=allocate_form %}
     <div class="floating_ips table_search">
       <form action="#">
         <input class="span3" type="text">

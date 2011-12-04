@@ -338,11 +338,11 @@ table form {
 
 .table_actions {
 	float: right;
+	min-width: 400px;
 }
 
 .table_actions .table_search {
 	float: right;
-	margin-right: 25px;
 }
 
 .table_search input {
@@ -351,6 +351,12 @@ table form {
 
 .table_actions a{
 	float: right;
+	margin-left: 10px;
+}
+
+.table_actions form {
+	float: right;
+	margin-left: 10px;
 }
 
 .hidden {
