@@ -5,14 +5,13 @@
 <div class="table_title">
   <h3>My Instances</h3>
   <div class="table_actions">
-    <a class="inspect" href="#">inspect</a>
-
+    <a class="btn small primary" href='{% url horizon:nova:images:index %}'>{% trans "Launch Instance" %}</a>
     <div class="instances table_search">
       <form action="#">
         <input class="span3" type="text">
       </form>
     </div>
-    <a class="btn small primary" href='{% url horizon:nova:images:index %}'>{% trans "Launch Instance" %}</a>
+    <a class="inspect" href="#">inspect</a>
   </div>
 </div>
 
