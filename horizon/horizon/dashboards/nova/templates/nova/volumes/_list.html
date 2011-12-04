@@ -29,12 +29,11 @@
     </td>
     <td>{{ volume.displayName }}</td>
     <td>{{ volume.size }} {% trans "GB" %}</td>
-    <td>
+    <td>      
       {% for attachment in volume.attachments %}
-        {{attachment}}
         {% if attachment %}
           <a href="{% url horizon:nova:instances:detail request.user.tenant_name attachment.serverId %}">
-          <!-- TODO (tres): Show instance name -->
+          {# TODO(jake): Make this the instance name #}
           Instance {{ attachment.serverId }}
           <small>({{ attachment.device }})</small>
         </a>
@@ -43,22 +42,18 @@
         {% endif %}
       {% endfor %}
     </td>
-    <td id="actions">
+
+    <td id="name_{{instance.name}}" class="actions">
+      <a class="more-actions" href="#">View</a>
       <ul>
         {% if volume.status == "in-use" %}
           {% for attachment in volume.attachments %}
-            <li class="form">
-              {% include "nova/volumes/_detach.html" with form=detach_form %}
-            </li>
+            <li class="form">{% include "nova/volumes/_detach.html" with form=detach_form %}</li>
           {% endfor %}
         {% endif %}
         {% if volume.status == "available" %}
-        <li>
-          <a class="btn small" href="{% url horizon:nova:volumes:attach volume.id %}">{% trans "Attach" %}</a>
-        </li>
-        <li class="form">
-          {% include "nova/volumes/_delete.html" with form=delete_form %}
-        </li>
+          <li><a class="btn small" href="{% url horizon:nova:volumes:attach volume.id %}">{% trans "Attach" %}</a></li>
+          <li class="form">{% include "nova/volumes/_delete.html" with form=delete_form %}</li>
         {% endif %}
       </ul>
     </td>
