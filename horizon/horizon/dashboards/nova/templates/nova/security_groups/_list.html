@@ -26,7 +26,8 @@
     </td>
     <td><a href="{% url horizon:nova:security_groups:edit_rules security_group.id %}">{{ security_group.name }}</a></td>
     <td>{{ security_group.description }}</td>
-    <td id="actions">
+		<td id="name_{{security_group.name}}" class="actions">
+      <a class="more-actions" href="#">View</a>
       <ul>
         <li><a class="btn small" href="{% url horizon:nova:security_groups:edit_rules security_group.id %}">{% trans "Edit Rules"%}</a></li>
         {% if security_group.name != 'default' %}

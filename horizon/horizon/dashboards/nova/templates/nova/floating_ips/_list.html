@@ -35,8 +35,8 @@
         None
       {% endif %}
     </td>
-
-    <td id="actions">
+		<td id="name_{{ip.name}}" class="actions">
+      <a class="more-actions" href="#">View</a>
       <ul>
         <li class="form">{% include "nova/floating_ips/_release.html" with form=release_form %}</li>
         {% if ip.fixed_ip %}
