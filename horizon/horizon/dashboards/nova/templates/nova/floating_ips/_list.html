@@ -13,16 +13,18 @@
   </div>
 </div>
 
-<table id="floating_ips" class="zebra-striped">
-  <tr>
-		<th></th>
-    <th>IP</th>
-    <th>Instance</th>
-    <th colspan="2">Actions</th>
-  </tr>
+<table id="floating_ips" class="zebra-striped sortable">
+  <thead>
+    <tr>
+      <th></th>
+      <th>IP</th>
+      <th>Instance</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
   {% for ip in floating_ips %}
   <tr class="{% cycle 'odd' 'even' %}">
-		<td class="select">
+    <td class="select">
       <input type="checkbox" name="ip_{{ip.id}}" value="ip_{{ip.id}}" id="ip_select_{{ip.id}}" />
     </td>
     <td>{{ ip.ip }}</td>
@@ -43,7 +45,7 @@
         <a class="btn primary small ajax-modal" href="{% url horizon:nova:floating_ips:associate ip.id %}">{%trans "Associate to instance"%}</a>
       {% endif %}
     </td>
-		<td id="name_{{ip.name}}" class="actions">
+    <td id="name_{{ip.name}}" class="actions">
       <a class="more-actions" href="#">View</a>
       <ul>
         <li class="form">{% include "nova/floating_ips/_release.html" with form=release_form %}</li>

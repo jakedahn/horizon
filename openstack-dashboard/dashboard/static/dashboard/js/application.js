@@ -3,7 +3,7 @@
     var options = $.extend({
       trigger: 'change',
       retrieve: 'name',
-      container: $('table'),
+      container: $('table.sortable'),
       selector: '.',
       selected_class: 'hidden'
     }, opt);
@@ -49,7 +49,7 @@ $(function(){
     }
   });
 
-  $('table#keypairs').tablesorter();
+  $('table.sortable').tablesorter();
 
   // show+hide image details
   $(".details").hide()
@@ -78,8 +78,6 @@ $(function(){
     var response = confirm('Are you sure you want to reboot the '+$(this).attr('title')+" ?");
     return response;
   })
-  
-  $("table.eSorter").tablesorter();
 
   $(".disable").click(function(e){
     var response = confirm('Are you sure you want to disable the '+$(this).attr('title')+" ?");
