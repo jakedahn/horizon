@@ -1,12 +1,16 @@
 {% load i18n %}
 <table id="floating_ips" class="zebra-striped">
   <tr>
+		<th></th>
     <th>IP</th>
     <th>Instance</th>
     <th>Actions</th>
   </tr>
   {% for ip in floating_ips %}
   <tr class="{% cycle 'odd' 'even' %}">
+		<td class="select">
+      <input type="checkbox" name="ip_{{ip.id}}" value="ip_{{ip.id}}" id="ip_select_{{ip.id}}" />
+    </td>
     <td>{{ ip.ip }}</td>
     <td>
       {% if ip.fixed_ip %}
