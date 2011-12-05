@@ -38,7 +38,7 @@ class CreateForm(forms.SelfHandlingForm):
             LOG.exception("ClientException in CreateVolume")
             messages.error(request,
                            _('Error Creating Volume: %s') % e.message)
-        return shortcuts.redirect("horizon:nova:volumes:index")
+        return shortcuts.redirect("horizon:nova:instances_and_volumes:volumes:index")
 
 
 class DeleteForm(forms.SelfHandlingForm):
@@ -95,7 +95,7 @@ class AttachForm(forms.SelfHandlingForm):
             LOG.exception("ClientException in AttachVolume")
             messages.error(request,
                            _('Error attaching volume: %s') % e.message)
-        return shortcuts.redirect("horizon:nova:volumes:index")
+        return shortcuts.redirect("horizon:nova:instances_and_volumes:volumes:index")
 
 
 class DetachForm(forms.SelfHandlingForm):
@@ -115,4 +115,4 @@ class DetachForm(forms.SelfHandlingForm):
             LOG.exception("ClientException in DetachVolume")
             messages.error(request,
                            _('Error detaching volume: %s') % e.message)
-        return shortcuts.redirect("horizon:nova:volumes:index")
+        return shortcuts.redirect("horizon:nova:instances_and_volumes:volumes:index")

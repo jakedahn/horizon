@@ -1,9 +1,5 @@
 # vim: tabstop=4 shiftwidth=4 softtabstop=4
 
-# Copyright 2011 United States Government as represented by the
-# Administrator of the National Aeronautics and Space Administration.
-# All Rights Reserved.
-#
 # Copyright 2011 Nebula, Inc.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -18,13 +14,12 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import horizon
-from horizon.dashboards.nova import dashboard
+from django.conf.urls.defaults import patterns, url
 
 
-class Instances(horizon.Panel):
-    name = "Instances"
-    slug = 'instances'
-
-
-dashboard.Nova.register(Instances)
+urlpatterns = patterns('horizon.dashboards.nova.instances_and_volumes.volumes.views',
+    url(r'^$', 'index', name='index'),
+    url(r'^create/$', 'create', name='create'),
+    url(r'^(?P<volume_id>[^/]+)/attach/$', 'attach', name='attach'),
+    url(r'^(?P<volume_id>[^/]+)/detail/$', 'detail', name='detail'),
+)

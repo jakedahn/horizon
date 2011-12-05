@@ -18,9 +18,9 @@ import horizon
 from horizon.dashboards.nova import dashboard
 
 
-class Volumes(horizon.Panel):
-    name = "Volumes"
-    slug = 'volumes'
+class InstancesAndVolumes(horizon.Panel):
+    name = "Instances & Volumes"
+    slug = 'instances_and_volumes'
 
 
-dashboard.Nova.register(Volumes)
+dashboard.Nova.register(InstancesAndVolumes)

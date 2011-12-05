@@ -22,7 +22,7 @@ from django.conf.urls.defaults import patterns, url
 
 INSTANCES = r'^(?P<instance_id>[^/]+)/%s$'
 
-urlpatterns = patterns('horizon.dashboards.nova.instances.views',
+urlpatterns = patterns('horizon.dashboards.nova.instances_and_volumes.instances.views',
     url(r'^$', 'index', name='index'),
     url(r'^usage/$', 'usage', name='usage'),
     url(r'^refresh$', 'refresh', name='refresh'),
