@@ -249,7 +249,7 @@ class ImageViewTests(test.BaseViewTests):
                                form_data)
 
         self.assertRedirectsNoFollow(res,
-                                     reverse('horizon:nova:instances:index'))
+                 reverse('horizon:nova:instances_and_volumes:instances:index'))
 
     def test_launch_flavorlist_error(self):
         IMAGE_ID = '1'
