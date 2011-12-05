@@ -17,7 +17,7 @@
 from django.conf.urls.defaults import patterns, url
 
 
-urlpatterns = patterns('horizon.dashboards.nova.volumes.views',
+urlpatterns = patterns('horizon.dashboards.nova.instances_and_volumes.volumes.views',
     url(r'^$', 'index', name='index'),
     url(r'^create/$', 'create', name='create'),
     url(r'^(?P<volume_id>[^/]+)/attach/$', 'attach', name='attach'),

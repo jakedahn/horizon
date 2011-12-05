@@ -18,9 +18,11 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+from django.conf.urls.defaults import patterns, url
 
-from django.conf.urls.defaults import *
+INSTANCES = r'^(?P<instance_id>[^/]+)/%s$'
 
-urlpatterns = patterns('horizon.dashboards.nova',
-    url(r'^$', 'instances_and_volumes.instances.views.usage', name='index'),
+urlpatterns = patterns('horizon.dashboards.nova.instances_and_volumes',
+    url(r'', include(instances.urls)),
+    url(r'', include(volumes.urls))
 )
