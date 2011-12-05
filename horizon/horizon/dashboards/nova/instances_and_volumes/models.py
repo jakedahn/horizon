@@ -18,13 +18,6 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import horizon
-from horizon.dashboards.nova import dashboard
-
-
-class Instances(horizon.Panel):
-    name = "Instances"
-    slug = 'instances'
-
-
-dashboard.Nova.register(Instances)
+"""
+Stub file to work around django bug: https://code.djangoproject.com/ticket/7198
+"""
