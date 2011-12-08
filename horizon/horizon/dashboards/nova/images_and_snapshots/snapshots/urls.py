@@ -21,6 +21,6 @@
 from django.conf.urls.defaults import patterns, url
 
 
-urlpatterns = patterns('horizon.dashboards.nova.snapshots.views',
+urlpatterns = patterns('horizon.dashboards.nova.images_and_snapshots.snapshots.views',
     url(r'^$', 'index', name='index'),
     url(r'^(?P<instance_id>[^/]+)/create', 'create', name='create'))

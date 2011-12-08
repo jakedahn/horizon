@@ -82,7 +82,7 @@ class SnapshotsViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:snapshots:index'))
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:snapshots:index'))
 
         self.assertTemplateUsed(res, 'nova/snapshots/index.html')
 
@@ -100,7 +100,7 @@ class SnapshotsViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:snapshots:index'))
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:snapshots:index'))
 
         self.assertTemplateUsed(res, 'nova/snapshots/index.html')
 
@@ -114,7 +114,7 @@ class SnapshotsViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:snapshots:index'))
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:snapshots:index'))
 
         self.assertTemplateUsed(res, 'nova/snapshots/index.html')
 
@@ -125,7 +125,7 @@ class SnapshotsViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:snapshots:create',
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:snapshots:create',
                                       args=[self.good_server.id]))
 
         self.assertTemplateUsed(res, 'nova/snapshots/create.html')
@@ -137,7 +137,7 @@ class SnapshotsViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:snapshots:create',
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:snapshots:create',
                                       args=[self.bad_server.id]))
 
         self.assertRedirectsNoFollow(res,
@@ -151,7 +151,7 @@ class SnapshotsViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:snapshots:create',
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:snapshots:create',
                                       args=[self.good_server.id]))
 
         self.assertRedirectsNoFollow(res,
@@ -179,12 +179,12 @@ class SnapshotsViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.post(reverse('horizon:nova:snapshots:create',
+        res = self.client.post(reverse('horizon:nova:images_and_snapshots:snapshots:create',
                                       args=[self.good_server.id]),
                                formData)
 
         self.assertRedirectsNoFollow(res,
-                                     reverse('horizon:nova:snapshots:index'))
+                                     reverse('horizon:nova:images_and_snapshots:snapshots:index'))
 
     def test_create_snapshot_post_exception(self):
         SNAPSHOT_NAME = 'snappy'
@@ -206,10 +206,10 @@ class SnapshotsViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.post(reverse('horizon:nova:snapshots:create',
+        res = self.client.post(reverse('horizon:nova:images_and_snapshots:snapshots:create',
                                       args=[self.good_server.id]),
                                formData)
 
         self.assertRedirectsNoFollow(res,
-                                     reverse('horizon:nova:snapshots:create',
+                                     reverse('horizon:nova:images_and_snapshots:snapshots:create',
                                              args=[self.good_server.id]))

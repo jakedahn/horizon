@@ -20,8 +20,15 @@
 
 from django.conf.urls.defaults import *
 
+import horizon 
 
-urlpatterns = patterns('horizon.dashboards.nova.images.views',
-    url(r'^$', 'index', name='index'),
-    url(r'^(?P<image_id>[^/]+)/launch/$', 'launch', name='launch'),
-    url(r'^(?P<image_id>[^/]+)/update/$', 'update', name='update'))
+from horizon.dashboards.nova.images_and_snapshots.images import urls\
+                                                         as image_urls
+from horizon.dashboards.nova.images_and_snapshots.snapshots import urls\
+                                                            as snapshot_urls
+
+urlpatterns = patterns('horizon.dashboards.nova.images_and_snapshots',
+    url(r'^$', 'views.index', name='images_and_snapshots_index'),
+    url(r'', include(image_urls, namespace='images')),
+    url(r'', include(snapshot_urls, namespace='snapshots')),
+)

@@ -29,7 +29,7 @@ from horizon import api
 from horizon import test
 
 
-IMAGES_INDEX_URL = reverse('horizon:nova:images:index')
+IMAGES_INDEX_URL = reverse('horizon:nova:images_and_snapshots:images:index')
 
 
 class FakeQuota:
@@ -89,7 +89,7 @@ class ImageViewTests(test.BaseViewTests):
 
         res = self.client.get(IMAGES_INDEX_URL)
 
-        self.assertTemplateUsed(res, 'nova/images/index.html')
+        self.assertTemplateUsed(res, 'nova/images_and_snapshots/images//index.html')
 
         self.assertIn('images', res.context)
         images = res.context['images']
@@ -111,7 +111,7 @@ class ImageViewTests(test.BaseViewTests):
 
         res = self.client.get(IMAGES_INDEX_URL)
 
-        self.assertTemplateUsed(res, 'nova/images/index.html')
+        self.assertTemplateUsed(res, 'nova/images_and_snapshots/images//index.html')
 
     def test_index_client_conn_error(self):
         self.mox.StubOutWithMock(api, 'image_list_detailed')
@@ -130,7 +130,7 @@ class ImageViewTests(test.BaseViewTests):
         res = self.client.get(IMAGES_INDEX_URL)
 
         self.assertTemplateUsed(res,
-                'nova/images/index.html')
+                'nova/images_and_snapshots/images//index.html')
 
     def test_index_glance_error(self):
         self.mox.StubOutWithMock(api, 'image_list_detailed')
@@ -148,7 +148,7 @@ class ImageViewTests(test.BaseViewTests):
 
         res = self.client.get(IMAGES_INDEX_URL)
 
-        self.assertTemplateUsed(res, 'nova/images/index.html')
+        self.assertTemplateUsed(res, 'nova/images_and_snapshots/images//index.html')
 
     def test_launch_get(self):
         IMAGE_ID = '1'
@@ -173,10 +173,10 @@ class ImageViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:images:launch',
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:launch',
                                       args=[IMAGE_ID]))
 
-        self.assertTemplateUsed(res, 'nova/images/launch.html')
+        self.assertTemplateUsed(res, 'nova/images_and_snapshots/images//launch.html')
 
         image = res.context['image']
         self.assertEqual(image.name, self.visibleImage.name)
@@ -244,7 +244,7 @@ class ImageViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.post(reverse('horizon:nova:images:launch',
+        res = self.client.post(reverse('horizon:nova:images_and_snapshots:launch',
                                        args=[IMAGE_ID]),
                                form_data)
 
@@ -275,10 +275,10 @@ class ImageViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:images:launch',
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:launch',
                                       args=[IMAGE_ID]))
 
-        self.assertTemplateUsed(res, 'nova/images/launch.html')
+        self.assertTemplateUsed(res, 'nova/images_and_snapshots/images//launch.html')
 
         form = res.context['form']
 
@@ -309,10 +309,10 @@ class ImageViewTests(test.BaseViewTests):
 
         self.mox.ReplayAll()
 
-        res = self.client.get(reverse('horizon:nova:images:launch',
+        res = self.client.get(reverse('horizon:nova:images_and_snapshots:launch',
                                       args=[IMAGE_ID]))
 
-        self.assertTemplateUsed(res, 'nova/images/launch.html')
+        self.assertTemplateUsed(res, 'nova/images_and_snapshots/images//launch.html')
 
         form = res.context['form']
 
@@ -374,7 +374,7 @@ class ImageViewTests(test.BaseViewTests):
         messages.error(IsA(http.HttpRequest), IsA(basestring))
 
         self.mox.ReplayAll()
-        url = reverse('horizon:nova:images:launch', args=[IMAGE_ID])
+        url = reverse('horizon:nova:images_and_snapshots:launch', args=[IMAGE_ID])
         res = self.client.post(url, form_data)
 
-        self.assertTemplateUsed(res, 'nova/images/launch.html')
+        self.assertTemplateUsed(res, 'nova/images_and_snapshots/images//launch.html')

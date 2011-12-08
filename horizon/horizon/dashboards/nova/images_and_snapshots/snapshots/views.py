@@ -36,7 +36,8 @@ from openstackx.api import exceptions as api_exceptions
 
 from horizon import api
 from horizon import forms
-from horizon.dashboards.nova.snapshots.forms import CreateSnapshot
+from horizon.dashboards.nova.images_and_snapshots.snapshots.forms import \
+                                                                CreateSnapshot
 
 
 LOG = logging.getLogger(__name__)
