@@ -250,6 +250,7 @@ def detail(request, instance_id):
     try:
         instance = api.server_get(request, instance_id)
         volumes = api.volume_instance_list(request, instance_id)
+        messages.success(request, instance.attrs.security_groups)
         try:
             console = api.console_create(request, instance_id, 'vnc')
             vnc_url = "%s&title=%s(%s)" % (console.output,
