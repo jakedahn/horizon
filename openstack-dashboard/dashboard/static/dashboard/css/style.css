@@ -1,3 +1,5 @@
+/* @override http://looce.com:8080/static/dashboard/css/style.css */
+
 /* new clearfix */
 .clearfix:after {
     visibility: hidden;
@@ -770,7 +772,51 @@ td.actions ul {
   display: none;
 }
 
-.launch_image input[type="checkbox"] {
-  float: left;
-  width: 25px;
+#instance_tabs {
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #e1e1e1;
 }
+
+#instance_tabs li a {
+	background: #f2f2f2;
+	display: block;
+	font-size: 14px;
+	float: left;
+	padding: 5px 10px;
+	margin-right: 10px;
+	border: 1px solid #e1e1e1;
+	border-bottom: none;
+}
+
+#instance_tabs li.active a {
+	background: #fff;
+	padding-bottom: 8px;
+	margin-bottom: -5px;
+}
+
+a.view_full {
+	float: right;
+	margin-top: -25px;
+}
+
+pre.logs {
+	margin-top: 82px;
+}
+
+.tab_wrapper {
+	padding-top: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
