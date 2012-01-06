@@ -49,6 +49,11 @@ class FloatingIp(APIResourceWrapper):
     _attrs = ['ip', 'fixed_ip', 'instance_id', 'id']
 
 
+class FloatingIpPool(APIResourceWrapper):
+    """Simple wrapper for floating ips"""
+    _attrs = ['name']
+
+
 class KeyPair(APIResourceWrapper):
     """Simple wrapper around openstackx.extras.keypairs.Keypair"""
     _attrs = ['fingerprint', 'name', 'private_key']
@@ -193,9 +198,10 @@ def tenant_floating_ip_get(request, floating_ip_id):
     return novaclient(request).floating_ips.get(floating_ip_id)
 
 
-def tenant_floating_ip_allocate(request):
+def tenant_floating_ip_allocate(request, pool=None):
     """
     Allocates a floating ip to tenant.
+    Optionally you may provide a pool for which you would like the IP.
     """
     return novaclient(request).floating_ips.create()
 
@@ -205,6 +211,13 @@ def tenant_floating_ip_release(request, floating_ip_id):
     Releases floating ip from the pool of a tenant.
     """
     return novaclient(request).floating_ips.delete(floating_ip_id)
+
+
+def floating_ip_pool_list(request):
+    """
+    Returns a list of possible floating ip pool options.
+    """
+    return novaclient(request).floating_ip_pools.list()
 
 
 def snapshot_create(request, instance_id, name):

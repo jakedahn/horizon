@@ -81,6 +81,7 @@ def index(request):
         messages.error(request, _('Error fetching keypairs: %s') % e.message)
 
     context = {'keypairs': keypairs,
+               'fip_pools_length': floating_ip_pools,
                'floating_ips': floating_ips,
                'security_groups': security_groups,
                'keypair_delete_form': DeleteKeypair(),
