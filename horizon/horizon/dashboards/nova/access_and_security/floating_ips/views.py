@@ -88,6 +88,28 @@ def associate(request, ip_id):
 
 
 @login_required
+def allocate(request):
+    pool_list = [(pool.name, pool.name)
+                 for pool in api.floating_ip_pools_list(request)]
+
+    form, handled = FloatingIpAllocate().maybe_handle(request, initial={
+                'tenant_id': request.user.tenant_id,
+                'pool_list': pool_list})
+    if handled:
+        return handled
+
+    context = {'form': form}
+
+    if request.is_ajax():
+        template = 'nova/access_and_security/floating_ips/_allocate.html'
+        context['hide'] = True
+    else:
+        template = 'nova/access_and_security/floating_ips/allocate.html'
+
+    return shortcuts.render(request, template, context)
+
+
+@login_required
 def disassociate(request, ip_id):
     form, handled = FloatingIpDisassociate().maybe_handle(request)
     if handled:

@@ -80,6 +80,14 @@ def index(request):
         LOG.exception("ClientException in keypair index")
         messages.error(request, _('Error fetching keypairs: %s') % e.message)
 
+    try:
+        floating_ip_pools = api.floating_ip_pools_list(request)
+    except novaclient_exceptions.ClientException, e:
+        floating_ip_pools = []
+        LOG.exception("ClientException in floating ip pools list.")
+        messages.error(request,
+                    _('Error fetching floating ip pool list: %s') % e.message)
+
     context = {'keypairs': keypairs,
                'fip_pools_length': floating_ip_pools,
                'floating_ips': floating_ips,

@@ -106,9 +106,17 @@ class FloatingIpDisassociate(forms.SelfHandlingForm):
 class FloatingIpAllocate(forms.SelfHandlingForm):
     tenant_id = forms.CharField(widget=forms.HiddenInput())
 
+    def __init__(self, *args, **kwargs):
+        super(FloatingIpAllocate, self).__init__(*args, **kwargs)
+        floating_pool_list = kwargs.get('initial', {}).get('pool_list', [])
+        self.fields['pool_list_id'] = forms.ChoiceField(
+                                                choices=floating_pool_list,
+                                                label=_("Floating IP Pool"))
+
     def handle(self, request, data):
         try:
-            fip = api.tenant_floating_ip_allocate(request)
+            fip = api.tenant_floating_ip_allocate(request,
+                                                  pool=data.get('pool', None))
             LOG.info('Allocating Floating IP "%s" to tenant "%s"'
                      % (fip.ip, data['tenant_id']))
 

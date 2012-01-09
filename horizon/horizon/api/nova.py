@@ -44,9 +44,14 @@ class Flavor(APIResourceWrapper):
     _attrs = ['disk', 'id', 'links', 'name', 'ram', 'vcpus']
 
 
+class FloatingIPPool(APIResourceWrapper):
+    """Simple wrapper for floating ip pools"""
+    _attrs = ['name']
+
+
 class FloatingIp(APIResourceWrapper):
     """Simple wrapper for floating ips"""
-    _attrs = ['ip', 'fixed_ip', 'instance_id', 'id']
+    _attrs = ['ip', 'fixed_ip', 'instance_id', 'id', "pool"]
 
 
 class FloatingIpPool(APIResourceWrapper):
@@ -182,6 +187,14 @@ def flavor_get(request, flavor_id):
 
 def flavor_list(request):
     return [Flavor(f) for f in novaclient(request).flavors.list()]
+
+
+def floating_ip_pools_list(request):
+    """
+    Fetches a list of all floating ip pools.
+    """
+    return [FloatingIPPool(pool) 
+            for pool in novaclient(request).floating_ip_pools.list()]
 
 
 def tenant_floating_ip_list(request):

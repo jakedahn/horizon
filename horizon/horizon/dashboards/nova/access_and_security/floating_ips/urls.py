@@ -25,5 +25,6 @@ urlpatterns = patterns(
     'horizon.dashboards.nova.access_and_security.floating_ips.views',
     url(r'^$', 'index', name='index'),
     url(r'^(?P<ip_id>[^/]+)/associate/$', 'associate', name='associate'),
+    url(r'^/allocate/$', 'allocate', name='allocate'),
     url(r'^(?P<ip_id>[^/]+)/disassociate/$', 'disassociate',
         name='disassociate'))
