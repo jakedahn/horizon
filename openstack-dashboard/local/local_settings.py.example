@@ -36,12 +36,15 @@ HORIZON_CONFIG = {
     'user_home': 'dashboard.views.user_home',
 }
 
+# For single-region support simply delete the second region.
+# AVAILABLE_REGIONS = [
+#     ('cluster1', 'http://cluster1.com:5000/v2.0'),
+#     ('cluster2', 'http://cluster2.com:5000/v2.0'),
+# ]
+
+# FIXME: This is only here so quantum still works. It must be refactored to
+# work with multiple regions.
 OPENSTACK_HOST = "127.0.0.1"
-OPENSTACK_KEYSTONE_URL = "http://%s:5000/v2.0" % OPENSTACK_HOST
-# FIXME: this is only needed until keystone fixes its GET /tenants call
-# so that it doesn't return everything for admins
-OPENSTACK_KEYSTONE_ADMIN_URL = "http://%s:35357/v2.0" % OPENSTACK_HOST
-OPENSTACK_KEYSTONE_DEFAULT_ROLE = "Member"
 
 # The number of Swift containers and objects to display on a single page before
 # providing a paging element (a "more" link) to paginate results.

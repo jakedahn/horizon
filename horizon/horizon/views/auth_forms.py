@@ -25,6 +25,7 @@ Forms used for Horizon's auth mechanisms.
 import logging
 
 from django import shortcuts
+from django.conf import settings
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from keystoneclient import exceptions as keystone_exceptions
@@ -58,11 +59,19 @@ class Login(forms.SelfHandlingForm):
 
     Subclass of :class:`~horizon.forms.SelfHandlingForm`.
     """
+    region = forms.ChoiceField(widget=forms.Select,
+                               choices= [('%s,%s' % (region[1], region[0]),
+                                         region[0]) for region
+                                         in settings.AVAILABLE_REGIONS])
     username = forms.CharField(max_length="20", label=_("User Name"))
     password = forms.CharField(max_length="20", label=_("Password"),
                                widget=forms.PasswordInput(render_value=False))
 
     def handle(self, request, data):
+        region = data.get('region', None).split(',')
+        request.session['region_endpoint'] = region[0]
+        request.session['region_name'] = region[1]
+
         if data.get('tenant', None):
             try:
                 token = api.token_create(request,
@@ -145,6 +154,10 @@ class LoginWithTenant(Login):
     Exactly like :class:`.Login` but includes the tenant id as a field
     so that the process of choosing a default tenant is bypassed.
     """
+    region = forms.ChoiceField(widget=forms.Select,
+                               choices= [('%s,%s' % (region[1], region[0]),
+                                          region[0]) for region
+                                         in settings.AVAILABLE_REGIONS])
     username = forms.CharField(max_length="20",
                        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
     tenant = forms.CharField(widget=forms.HiddenInput())
