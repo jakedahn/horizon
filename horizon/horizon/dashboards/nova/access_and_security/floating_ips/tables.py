@@ -28,15 +28,16 @@ from horizon import tables
 LOG = logging.getLogger(__name__)
 
 
-class AllocateIP(tables.Action):
+class AllocateIP(tables.LinkAction):
     name = "allocate"
     verbose_name = _("Allocate IP To Tenant")
-    requires_input = False
-
+    attrs = {"class": "ajax-modal btn primary small"}
+    url = "horizon:nova:access_and_security:floating_ips:allocate"
+    
     def single(self, data_table, request, *args):
         tenant_id = request.user.tenant_id
         try:
-            fip = api.tenant_floating_ip_allocate(request)
+            fip = api.tenant_floating_ip_allocate(request, pool=pool)
             LOG.info('Allocating Floating IP "%s" to tenant "%s".'
                      % (fip.ip, tenant_id))
             messages.success(request, _('Successfully allocated Floating IP '

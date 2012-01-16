@@ -28,7 +28,7 @@ from django.utils.translation import ugettext as _
 
 from horizon import api
 from horizon import forms
-from .forms import FloatingIpAssociate
+from .forms import FloatingIpAssociate, FloatingIpAllocate
 
 
 LOG = logging.getLogger(__name__)
@@ -56,3 +56,15 @@ class AssociateView(forms.ModalFormView):
         return {'floating_ip_id': self.object.id,
                 'floating_ip': self.object.ip,
                 'instances': instances}
+
+
+class AllocateView(forms.ModalFormView):
+    form_class = FloatingIpAllocate
+    template_name = 'nova/access_and_security/floating_ips/allocate.html'
+    context_object_name = 'floating_ip'
+
+    def get_initial(self):
+        pool_list = [(pool.name, pool.name)
+                     for pool in api.floating_ip_pools_list(self.request)]
+        return {'tenant_id': self.request.user.tenant_id,
+                'pool_list': pool_list}

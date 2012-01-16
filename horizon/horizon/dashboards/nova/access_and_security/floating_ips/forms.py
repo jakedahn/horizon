@@ -60,3 +60,35 @@ class FloatingIpAssociate(forms.SelfHandlingForm):
             LOG.exception("ClientException in FloatingIpAssociate")
             messages.error(request, _('Error associating Floating IP: %s') % e)
         return shortcuts.redirect('horizon:nova:access_and_security:index')
+
+
+class FloatingIpAllocate(forms.SelfHandlingForm):
+    tenant_id = forms.CharField(widget=forms.HiddenInput())
+    pool_list = forms.ChoiceField()
+
+    def __init__(self, *args, **kwargs):
+        super(FloatingIpAllocate, self).__init__(*args, **kwargs)
+        floating_pool_list = kwargs.get('initial', {}).get('pool_list', [])
+        self.fields['pool_list_id'] = forms.ChoiceField(
+                                                choices=floating_pool_list,
+                                                label=_("Floating IP Pool"))
+
+    def handle(self, request, data):
+        try:
+            fip = api.tenant_floating_ip_allocate(request,
+                                                  pool=data.get('pool', None))
+            LOG.info('Allocating Floating IP "%s" to tenant "%s"'
+                     % (fip.ip, data['tenant_id']))
+
+            messages.success(request,
+                             _('Successfully allocated Floating IP "%(ip)s"\
+                                to tenant "%(tenant)s"')
+                             % {"ip": fip.ip, "tenant": data['tenant_id']})
+
+        except novaclient_exceptions.ClientException, e:
+            LOG.exception("ClientException in FloatingIpAllocate")
+            messages.error(request, _('Error allocating Floating IP "%(ip)s"\
+                to tenant "%(tenant)s": %(msg)s') %
+                {"ip": fip.ip, "tenant": data['tenant_id'], "msg": e.message})
+        return shortcuts.redirect(
+                        'horizon:nova:access_and_security:index')
