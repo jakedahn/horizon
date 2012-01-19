@@ -126,7 +126,7 @@ class LaunchForm(forms.SelfHandlingForm):
                               data.get('keypair'),
                               normalize_newlines(data.get('user_data')),
                               data.get('security_groups'),
-                              count=data.get('count'))
+                              instance_count=data.get('count'))
             messages.success(request,
                              _('Instance "%s" launched.') % data["name"])
         except:
