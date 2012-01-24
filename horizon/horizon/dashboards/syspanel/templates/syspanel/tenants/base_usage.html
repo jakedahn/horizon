@@ -1,4 +1,4 @@
-{% extends 'syspanel/tenants/base_usage.html' %}
+{% extends 'syspanel/base.html' %}
 {% load i18n sizeformat %}
 {% block title %}Usage Overview{% endblock %}
 
@@ -19,7 +19,7 @@
   </div>
 {% endif %}
 
-<form action="" method="get" id="date_form" class="form-horizontal">
+<form action="" method="get" id="date_form">
   <h3>{% trans "Select a month to query its usage" %}: </h3>
   <div class="form-row">
     {{ dateform.month }}
@@ -30,10 +30,11 @@
 
 <p id="activity">
   <span><strong>{% trans "Active Instances" %}:</strong> {{ global_summary.total_active_instances|default:'-' }}</span>
-  <span><strong>{% trans "This month's VCPU-Hours" %}:</strong> {{ global_summary.total_cpu_usage|floatformat|default:'-' }}</span>
-  <span><strong>{% trans "This month's GB-Hours" %}:</strong> {{ global_summary.total_disk_usage|floatformat|default:'-' }}</span>
+  <span><strong>{% trans "Active Memory" %}:</strong> {{ global_summary.total_active_memory_mb|mbformat|default:'-' }}</span>
+  <span><strong>{% trans "This month's VCPU-Hours" %}:</strong> {{ global_summary.total_vcpus_usage|floatformat|default:'-' }}</span>
+  <span><strong>{% trans "This month's GB-Hours" %}:</strong> {{ global_summary.total_local_gb_usage|floatformat|default:'-' }}</span>
 </p>
 
-{% block activity_list %} {% endblock %}
+{% block activity_list %}{% endblock %}
 
 {% endblock %}
