@@ -42,14 +42,16 @@ LOG = logging.getLogger(__name__)
 
 
 def _set_session_data(request, token):
+    tenants = [dict(id=tenant.id, name=tenant.name) for tenant in \
+                                  api.tenant_list_for_token(request, token.id)]
     request.session['serviceCatalog'] = token.serviceCatalog
+    request.session['tenant_list'] = tenants
     request.session['tenant'] = token.tenant['name']
     request.session['tenant_id'] = token.tenant['id']
     request.session['token'] = token.id
     request.session['user_name'] = token.user['name']
     request.session['user_id'] = token.user['id']
     request.session['roles'] = token.user['roles']
-
 
 class Login(forms.SelfHandlingForm):
     """ Form used for logging in a user.

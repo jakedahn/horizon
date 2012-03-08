@@ -58,9 +58,10 @@ class HorizonMiddleware(object):
             try:
                 token = request.session.get("unscoped_token",
                                             request.user.token)
-                authd = api.tenant_list_for_token(request,
+                authd = request.session.get("tenant_list",
+                        api.tenant_list_for_token(request,
                                                   token,
-                                                  endpoint_type='internalURL')
+                                                  endpoint_type='internalURL'))
             except:
                 authd = []
                 LOG.exception('Could not retrieve tenant list.')
