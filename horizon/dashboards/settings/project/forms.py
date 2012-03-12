@@ -44,7 +44,7 @@ class DownloadOpenRCForm(forms.SelfHandlingForm):
         super(DownloadOpenRCForm, self).__init__(*args, **kwargs)
         # Populate tenant choices
         tenant_choices = []
-        for tenant in api.tenant_list(request):
+        for tenant in api.tenant_list_from_session(request):
             if tenant.enabled:
                 tenant_choices.append((tenant.id, tenant.name))
         self.fields['tenant'].choices = tenant_choices

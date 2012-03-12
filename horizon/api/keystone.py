@@ -125,6 +125,13 @@ def tenant_list(request, admin=False):
     return keystoneclient(request, admin=admin).tenants.list()
 
 
+# NOTE(jakedahn): This is to be used in places where we say 'check session for
+# tenant list, or call for a new tenant list'. 
+def tenant_list_from_session(request, admin=False):
+    return request.session.get("tenant_list",
+                           keystoneclient(request, admin=admin).tenants.list())
+
+
 def tenant_update(request, tenant_id, tenant_name, description, enabled):
     return keystoneclient(request, admin=True).tenants.update(tenant_id,
                                                               tenant_name,

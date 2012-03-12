@@ -58,7 +58,6 @@ class HorizonMiddleware(object):
             try:
                 token = request.session.get("unscoped_token",
                                             request.user.token)
-                import pdb; pdb.set_trace()
                 authd = request.session.get("tenant_list",
                         api.tenant_list_for_token(request,
                                                   token,
