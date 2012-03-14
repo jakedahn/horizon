@@ -71,9 +71,9 @@ class DownloadX509Credentials(forms.SelfHandlingForm):
         try:
             # NOTE(jakedahn): Keystone errors unless we specifically scope
             #                 the token to tenant before making the call.
-            api.token_create_scoped(request,
-                                    data.get('tenant'),
-                                    request.user.token)
+            api.keystone.token_create_scoped(request,
+                                             data.get('tenant'),
+                                             request.user.token)
             credentials = api.nova.get_x509_credentials(request)
             cacert = api.nova.get_x509_root_certificate(request)
             keys = find_or_create_access_keys(request, data.get('tenant'))
